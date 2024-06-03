@@ -8,7 +8,8 @@ import {
 import proxyChain from "proxy-chain";
 import { uploadData } from "./mongodb.js";
 import chrome from "selenium-webdriver/chrome.js";
-import { ChromeDriverManager } from "webdriver-manager/chromedriver";
+import pkg from "webdriver-manager";
+const { ChromeDriverManager } = pkg;
 
 export async function seleniumPipeline() {
   let driver;
