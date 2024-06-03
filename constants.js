@@ -1,0 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+export const proxy_username = process.env.PROXY_USERNAME;
+export const proxy_password = process.env.PROXY_PASSWORD;
+export const proxy_host = process.env.PROXY_HOST;
+export const proxy_port = process.env.PROXY_PORT;
+export const proxy = `http://${proxy_username}:${proxy_password}@${proxy_host}:${proxy_port}`;
+export const twitter_username = process.env.TWITTER_USERNAME;
+export const twitter_password = process.env.TWITTER_PASSWORD;
+export const twitter_email = process.env.TWITTER_EMAIL;
+export const mongo_url = process.env.MONGO_URL;

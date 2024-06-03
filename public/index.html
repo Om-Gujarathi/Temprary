@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Barsaati Films Assignment</h1>
+    <button id="run-script">Click here to run the script</button>
+    <div id="results"></div>
+    <script>
+      document.getElementById("run-script").addEventListener("click", () => {
+        fetch("/run-selenium-script")
+          .then((response) => response.json())
+          .then((data) => {
+            const resultsDiv = document.getElementById("results");
+            const date = new Date(data.timestamp);
+            const dayAndTime = date.toLocaleString('en-US', {
+              weekday: 'long',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true,
+            });
+            resultsDiv.innerHTML = `
+                        <p>These are the most happening topics as on ${dayAndTime}</p>
+                        <ul>
+                            ${data.trends
+                              .map((trend) => `<li>${trend}</li>`)
+                              .join("")}
+                        </ul>
+                        <p>The IP address used for this query was ${data.ip}</p>
+                        <p>Here's a JSON extract of this record from the MongoDB:</p>
+                        <pre>${JSON.stringify(data.mongoDoc, null, 2)}</pre>
+                        <button id="run-again">Click here to run the query again</button>
+                    `;
+
+            document
+              .getElementById("run-again")
+              .addEventListener("click", () => {
+                document.getElementById("run-script").click();
+              });
+          });
+      });
+    </script>
+  </body>
+</html>
