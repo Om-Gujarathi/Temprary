@@ -8,6 +8,7 @@ import {
 import proxyChain from "proxy-chain";
 import { uploadData } from "./mongodb.js";
 import chrome from "selenium-webdriver/chrome.js";
+import { ChromeDriverManager } from "webdriver-manager/chromedriver";
 
 export async function seleniumPipeline() {
   let driver;
@@ -23,6 +24,9 @@ export async function seleniumPipeline() {
     options.addArguments("--no-sandbox"); 
     options.addArguments("--disable-dev-shm-usage"); 
 
+    const chromeDriverPath = ChromeDriverManager.getDriverPath();
+    let service = new chrome.ServiceBuilder(chromeDriverPath).build();
+
     const newProxyString = `http://${proxyHost}:${proxyPort}`;
     driver = await new Builder()
       .withCapabilities({
@@ -34,6 +38,7 @@ export async function seleniumPipeline() {
       })
       .forBrowser(Browser.CHROME)
       .setChromeOptions(options)
+      .setChromeService(service)
       .build();
     
     console.log("Driver created.");

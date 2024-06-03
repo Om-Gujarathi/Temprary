@@ -16,7 +16,8 @@
     "express": "^4.19.2",
     "mongodb": "^6.7.0",
     "proxy-chain": "^2.4.0",
-    "selenium-webdriver": "^4.21.0"
+    "selenium-webdriver": "^4.21.0",
+    "webdriver-manager": "^12.1.9"
   },
   "devDependencies": {
     "mocha": "10.4.0"
